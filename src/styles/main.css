@@ -1,0 +1,160 @@
+/* VANTADROP - Systeme de Design
+   Theme Ultra-Dark Minimaliste */
+
+/* Polices Google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap');
+
+/* Variables CSS */
+:root {
+  /* Couleurs principales */
+  --vanta-black: #050505;
+  --vanta-surface: #121212;
+  --vanta-border: #1a1a1a;
+  --vanta-text-primary: #ffffff;
+  --vanta-text-secondary: #b0b0b0;
+  --vanta-text-muted: #6a6a6a;
+
+  /* Couleurs de rareté et lueurs */
+  --rarity-common: #4a4a4a;
+  --rarity-common-glow: rgba(74, 74, 74, 0.4);
+  
+  --rarity-rare: #00d4ff;
+  --rarity-rare-glow: rgba(0, 212, 255, 0.5);
+  
+  --rarity-epic: #9c27b0;
+  --rarity-epic-glow: rgba(156, 39, 176, 0.5);
+  
+  --rarity-legendary: #ffb400;
+  --rarity-legendary-glow: rgba(255, 180, 0, 0.6);
+
+  /* Espacements */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Typographie */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 48px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Rayons de bordure */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+}
+
+/*reinitialisation global*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--vanta-black);
+  color: var(--vanta-text-primary);
+  line-height: 1.6;
+  font-size: var(--font-size-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*typo*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+p {
+  color: var(--vanta-text-secondary);
+}
+
+a {
+  color: var(--rarity-rare);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--rarity-legendary);
+}
+
+/*utilitaire*/
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.text-muted {
+  color: var(--vanta-text-muted);
+}
+
+.text-secondary {
+  color: var(--vanta-text-secondary);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/*style scrollbar*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vanta-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vanta-surface);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vanta-text-muted);
+}
