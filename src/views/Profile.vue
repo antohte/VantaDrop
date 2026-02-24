@@ -52,9 +52,7 @@ const r = useRouter()
 .sc:hover { border-color: #ffb400; }
 .sc h3 { color: white; margin: 0 0 1rem 0; font-size: 0.85rem; text-transform: uppercase; }
 .sc p { color: #ffb400; font-size: 1.5rem; margin: 0; }
-</style>
 
-<style scoped>
 /* Structure principale */
 .profile-page {
   min-height: 100vh;

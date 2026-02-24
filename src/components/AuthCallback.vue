@@ -53,10 +53,7 @@ onMounted(async () => {
 .ac { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0a0a0a; }
 .ls { text-align: center; color: white; }
 .es { text-align: center; color: #ff4545; }
-</style>
-</script>
 
-<style scoped>
 .auth-callback {
   min-height: 100vh;
   display: flex;

@@ -35,9 +35,7 @@ const q = ref('')
 .s { margin-bottom: 3rem; }
 .s h2 { color: #ffb400; text-transform: uppercase; margin-bottom: 2rem; }
 .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2rem; }
-</style>
 
-<style scoped>
 /* Structure principale */
 .dashboard {
   min-height: 100vh;

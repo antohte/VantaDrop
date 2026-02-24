@@ -28,10 +28,7 @@ const is = ref(false)
 .dm button { width: 100%; padding: 1rem; border: none; background: none; color: white; cursor: pointer; border-bottom: 1px solid #1a1a1a; text-align: left; }
 .dm button:last-child { border: none; }
 .dm button:hover { background: rgba(255, 180, 0, 0.1); }
-</style>
-</script>
 
-<style scoped>
 .menu-wrapper {
   position: relative;
   z-index: 1000;
