@@ -30,21 +30,6 @@ const r = useRouter()
 </script>
 
 <style scoped>
-.h { padding: 1.5rem 0; border-bottom: 1px solid #1a1a1a; position: sticky; top: 0; z-index: 99; }
-.c { max-width: 1440px; margin: 0 auto; padding: 0 1.5rem; }
-.h .c { display: flex; justify-content: space-between; align-items: center; }
-.bb { padding: 0.6rem 1.2rem; background: transparent; color: white; border: 1px solid #ffb400; border-radius: 6px; cursor: pointer; }
-.bb:hover { background: rgba(255, 180, 0, 0.1); }
-.m { flex: 1; padding: 2rem 0; }
-.es { text-align: center; padding: 3rem; color: #666; }
-.ig { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
-.ii { background: #0f0f0f; border: 1px solid #1a1a1a; border-radius: 8px; padding: 1rem; }
-.ii h3 { margin: 0 0 0.5rem 0; color: white; }
-.ii p { margin: 0; color: #ffb400; }
-</style>
-</script>
-
-<style scoped>
 /* Structure principale */
 .inventory-page {
   min-height: 100vh;
