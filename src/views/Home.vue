@@ -108,6 +108,4 @@ onMounted(() => {
 
 .pi div { color: #fff; }
 </style>
-</script>
-
 
