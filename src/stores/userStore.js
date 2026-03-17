@@ -1,57 +1,62 @@
 import { ref, reactive } from 'vue'
 
-const user = reactive({
+const utilisateur = reactive({
   id: null,
-  username: 'Anonymous',
+  username: 'Anonyme',
   avatar: null,
   email: null,
-  isAuthenticated: false
+  estConnecte: false
 })
 
-const balance = ref(0)
-const inventory = reactive([])
+const solde = ref(0)
+const inventaire = reactive([])
+const caissesOuvertes = ref(0)
 
-const save = () => {
+const sauvegarder = () => {
   localStorage.setItem('u', JSON.stringify({
-    id: user.id,
-    username: user.username,
-    avatar: user.avatar,
-    email: user.email,
-    isAuthenticated: user.isAuthenticated,
-    balance: balance.value,
-    inventory
+    id: utilisateur.id,
+    username: utilisateur.username,
+    avatar: utilisateur.avatar,
+    email: utilisateur.email,
+    estConnecte: utilisateur.estConnecte,
+    solde: solde.value,
+    inventaire,
+    caissesOuvertes: caissesOuvertes.value
   }))
 }
 
-const load = () => {
-  const d = localStorage.getItem('u')
-  if (d) {
-    const u = JSON.parse(d)
-    user.id = u.id
-    user.username = u.username
-    user.avatar = u.avatar
-    user.email = u.email
-    user.isAuthenticated = u.isAuthenticated
-    balance.value = u.balance || 0
-    inventory.length = 0
-    if (u.inventory) inventory.push(...u.inventory)
+const charger = () => {
+  const donneesBrutes = localStorage.getItem('u')
+  if (donneesBrutes) {
+    const donnees = JSON.parse(donneesBrutes)
+    utilisateur.id = donnees.id
+    utilisateur.username = donnees.username
+    utilisateur.avatar = donnees.avatar
+    utilisateur.email = donnees.email
+    utilisateur.estConnecte = donnees.estConnecte || false
+    solde.value = donnees.solde || 0
+    caissesOuvertes.value = donnees.caissesOuvertes || 0
+    inventaire.length = 0
+    if (donnees.inventaire) inventaire.push(...donnees.inventaire)
   }
 }
 
 export default {
-  user,
-  balance,
-  inventory,
-  setUserInfo: (info) => { Object.assign(user, info); save() },
-  resetStore: () => {
-    user.id = null
-    user.username = 'Anonymous'
-    user.avatar = null
-    user.email = null
-    user.isAuthenticated = false
-    balance.value = 0
-    inventory.length = 0
+  utilisateur,
+  solde,
+  inventaire,
+  caissesOuvertes,
+  definirInfosUtilisateur: (infos) => { Object.assign(utilisateur, infos); sauvegarder() },
+  reinitialiserStore: () => {
+    utilisateur.id = null
+    utilisateur.username = 'Anonyme'
+    utilisateur.avatar = null
+    utilisateur.email = null
+    utilisateur.estConnecte = false
+    solde.value = 0
+    caissesOuvertes.value = 0
+    inventaire.length = 0
     localStorage.removeItem('u')
   },
-  loadFromLocalStorage: load
+  chargerDepuisLocalStorage: charger
 }

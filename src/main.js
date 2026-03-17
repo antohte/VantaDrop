@@ -9,21 +9,21 @@ import AuthCallback from './components/AuthCallback.vue'
 import store from './stores/userStore'
 import './styles/main.css'
 
-store.loadFromLocalStorage()
+store.chargerDepuisLocalStorage()
 
-const rts = [
+const routes = [
   { path: '/', component: Home, name: 'Home' },
-  { path: '/dashboard', component: Dashboard, name: 'Dashboard', meta: { requiresAuth: true } },
-  { path: '/profile', component: Profile, name: 'Profile', meta: { requiresAuth: true } },
-  { path: '/inventory', component: Inventory, name: 'Inventory', meta: { requiresAuth: true } },
+  { path: '/dashboard', component: Dashboard, name: 'Dashboard', meta: { authRequise: true } },
+  { path: '/profile', component: Profile, name: 'Profile', meta: { authRequise: true } },
+  { path: '/inventory', component: Inventory, name: 'Inventory', meta: { authRequise: true } },
   { path: '/auth/callback', component: AuthCallback, name: 'AuthCallback' },
 ]
 
-const r = createRouter({ history: createWebHistory(), routes: rts })
+const routeur = createRouter({ history: createWebHistory(), routes })
 
-r.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.user.isAuthenticated) next('/')
+routeur.beforeEach((to, from, next) => {
+  if (to.meta.authRequise && !store.utilisateur.estConnecte) next('/')
   else next()
 })
 
-createApp(App).use(r).mount('#app')
+createApp(App).use(routeur).mount('#app')

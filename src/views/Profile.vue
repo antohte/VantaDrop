@@ -1,171 +1,66 @@
 <template>
-  <header class="h">
-    <div class="c">
-      <button @click="() => r.back()" class="bb">← Back</button>
-      <h1>Profile</h1>
-      <div></div>
-    </div>
-  </header>
+  <EnteteSite />
 
   <main class="m">
     <div class="c">
-      <div class="pc">
-        <div class="av">
-          <img :src="s.user.avatar" :alt="s.user.username" v-if="s.user.avatar">
-          <h2>{{ s.user.username }}</h2>
+      <section class="pc">
+        <div class="entete-profil">
+          <img :src="s.utilisateur.avatar" :alt="s.utilisateur.username" v-if="s.utilisateur.avatar" class="av">
+          <div v-else class="av-vide">{{ premiereLettre() }}</div>
+          <h2>{{ s.utilisateur.username }}</h2>
         </div>
-        <div class="st">
-          <div class="sc">
-            <h3>Balance</h3>
-            <p>{{ s.balance.value }}€</p>
+
+        <div class="grille-infos">
+          <div class="bloc-info">
+            <span class="label">Solde</span>
+            <div class="valeur-solde">
+              <strong>{{ s.solde.value }}€</strong>
+              <button class="pb" title="Bientôt disponible">+</button>
+            </div>
           </div>
-          <div class="sc">
-            <h3>Items</h3>
-            <p>{{ s.inventory.length }}</p>
+
+          <div class="bloc-info">
+            <span class="label">Caisses ouvertes</span>
+            <strong>{{ s.caissesOuvertes.value }}</strong>
           </div>
         </div>
-      </div>
+
+        <div class="actions">
+          <button class="ib" @click="allerInventaire">Voir inventaire</button>
+        </div>
+      </section>
     </div>
   </main>
 </template>
 
 <script setup>
+import EnteteSite from '../components/EnteteSite.vue'
 import { useRouter } from 'vue-router'
 import s from '../stores/userStore'
 
 const r = useRouter()
+const allerInventaire = () => r.push('/inventory')
+const premiereLettre = () => (s.utilisateur.username || 'U').charAt(0).toUpperCase()
 </script>
 
 <style scoped>
-.h { padding: 1.5rem 0; border-bottom: 1px solid #1a1a1a; position: sticky; top: 0; z-index: 99; }
-.h .c { max-width: 1440px; margin: 0 auto; padding: 0 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-.bb { padding: 0.6rem 1.2rem; background: transparent; color: white; border: 1px solid #ffb400; border-radius: 6px; cursor: pointer; }
-.bb:hover { background: rgba(255, 180, 0, 0.1); }
 .m { flex: 1; padding: 2rem 0; }
 .c { max-width: 1440px; margin: 0 auto; padding: 0 1.5rem; }
-.pc { background: #0f0f0f; border: 1px solid #1a1a1a; border-radius: 8px; padding: 2.5rem; text-align: center; }
-.av { margin-bottom: 2rem; }
-.av img { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #ffb400; margin-bottom: 1rem; }
-.av h2 { color: white; margin: 0; }
-.st { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-.sc { background: #151515; border: 1px solid #1a1a1a; border-radius: 6px; padding: 1.5rem; text-align: center; }
-.sc:hover { border-color: #ffb400; }
-.sc h3 { color: white; margin: 0 0 1rem 0; font-size: 0.85rem; text-transform: uppercase; }
-.sc p { color: #ffb400; font-size: 1.5rem; margin: 0; }
+.pc { max-width: 640px; margin: 0 auto; background: #0f0f0f; border: 1px solid #1a1a1a; border-radius: 8px; padding: 2rem; }
+.entete-profil { display: flex; flex-direction: column; align-items: center; margin-bottom: 1.5rem; }
+.av { width: 88px; height: 88px; border-radius: 50%; border: 2px solid #ffb400; margin-bottom: 1rem; }
+.av-vide { width: 88px; height: 88px; border-radius: 50%; border: 2px solid #ffb400; background: #1a1a1a; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem; }
+h2 { margin: 0; text-align: center; background: linear-gradient(135deg, #ffb400, #9c27b0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.grille-infos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.bloc-info { background: #151515; border: 1px solid #1a1a1a; border-radius: 8px; padding: 1rem; }
+.label { display: block; color: #bfbfbf; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.valeur-solde { display: flex; align-items: center; justify-content: space-between; }
+.actions { display: flex; }
+.pb { width: 24px; height: 24px; border: 1px solid #ffb400; border-radius: 50%; background: transparent; color: #ffb400; cursor: pointer; }
+.ib { margin-top: 1.5rem; width: 100%; padding: 0.8rem; background: #1a1a1a; color: #fff; border: 1px solid #333; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.ib:hover { background: #2a2a2a; box-shadow: 0 0 20px rgba(88, 101, 242, 0.25); }
 
-/* Structure principale */
-.profile-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: #0a0a0a;
-}
-
-/* Profile Card */
-.profile-card {
-  background-color: #0f0f0f;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  padding: 2.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Avatar Section */
-.avatar-section {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #1a1a1a;
-}
-
-.large-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 2px solid #c9a961;
-  object-fit: cover;
-  margin-bottom: 1.5rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.avatar-section h2 {
-  margin: 0 0 1rem 0;
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-}
-
-.user-id {
-  margin: 0;
-  color: #666;
-  font-size: 0.8rem;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.2px;
-}
-
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.5rem;
-}
-
-.stat-card {
-  background-color: #151515;
-  border: 1px solid #1a1a1a;
-  border-radius: 6px;
-  padding: 1.5rem;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  border-color: #c9a961;
-  background-color: #121212;
-}
-
-.stat-card h3 {
-  margin: 0 0 1rem 0;
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-}
-
-.stat-value {
-  margin: 0;
-  color: #c9a961;
-  font-size: 1.8rem;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .header-content {
-    gap: 1rem;
-  }
-
-  .header h1 {
-    font-size: 1.2rem;
-  }
-
-  .profile-card {
-    padding: 1.5rem;
-  }
-
-  .large-avatar {
-    width: 80px;
-    height: 80px;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
+@media (max-width: 640px) {
+  .grille-infos { grid-template-columns: 1fr; }
 }
 </style>
