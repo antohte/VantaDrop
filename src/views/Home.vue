@@ -3,17 +3,17 @@
 
   <main class="m">
     <div class="c">
-      <section v-if="!s.utilisateur.estConnecte" class="ws">
+      <section v-if="!store.utilisateur.estConnecte" class="ws">
         <h2>Bienvenue sur VantaDrop</h2>
         <p>Plateforme d'ouverture de caisses</p>
       </section>
 
-      <section v-if="s.utilisateur.estConnecte" class="ps">
+      <section v-if="store.utilisateur.estConnecte" class="ps">
         <h2>Profil</h2>
         <div class="pi">
-          <div>Pseudo: {{ s.utilisateur.username }}</div>
-          <div>Solde: {{ s.solde.value }}€</div>
-          <div>Objets: {{ s.inventaire.length }}</div>
+          <div>Pseudo: {{ store.utilisateur.username }}</div>
+          <div>Solde: {{ store.solde.value }}€</div>
+          <div>Objets: {{ store.inventaire.length }}</div>
         </div>
       </section>
     </div>
@@ -24,12 +24,12 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import EnteteSite from '../components/EnteteSite.vue'
-import s from '../stores/userStore'
+import store from '../stores/userStore'
 
-const r = useRouter()
+const nav = useRouter()
 
 onMounted(() => {
-  if (s.utilisateur.estConnecte) r.push('/dashboard')
+  if (store.utilisateur.estConnecte) nav.push('/dashboard')
 })
 </script>
 

@@ -4,29 +4,37 @@
       <div class="gauche">
         <img :src="logo" alt="Logo" class="lg">
         <nav class="nav">
-          <RouterLink to="/" class="lien">Boxes</RouterLink>
-          <RouterLink to="/dashboard" class="lien">Leaderboard</RouterLink>
+          <RouterLink to="/dashboard" class="lien">Caisses</RouterLink>
+          <RouterLink to="/items" class="lien">Objets</RouterLink>
+          <RouterLink to="/dashboard" class="lien">Classement</RouterLink>
         </nav>
       </div>
 
-      <button class="connexion" @click="connexion" v-if="!s.utilisateur.estConnecte">Connexion Discord</button>
-      <button class="profil" @click="allerProfil" v-if="s.utilisateur.estConnecte">
-        <img v-if="s.utilisateur.avatar" :src="s.utilisateur.avatar" :alt="s.utilisateur.username" class="av">
-        <span v-else class="av-vide">{{ premiereLettre() }}</span>
-      </button>
+      <div class="droite">
+        <button class="connexion" @click="connexion" v-if="!store.utilisateur.estConnecte">Connexion Discord</button>
+
+        <div class="niveau" v-if="store.utilisateur.estConnecte">
+          <span>Niv {{ store.niveau.value }}</span>
+        </div>
+
+        <button class="profil" @click="allerProfil" v-if="store.utilisateur.estConnecte">
+          <img v-if="store.utilisateur.avatar" :src="store.utilisateur.avatar" :alt="store.utilisateur.username" class="av">
+          <span v-else class="av-vide">{{ premiereLettre() }}</span>
+        </button>
+      </div>
     </div>
   </header>
 </template>
 
 <script setup>
 import { useRouter, RouterLink } from 'vue-router'
-import s from '../stores/userStore'
+import store from '../stores/userStore'
 import * as auth from '../services/discordAuth'
 import logo from '../assets/LogoVantaDrop.jpg'
 
-const r = useRouter()
-const allerProfil = () => r.push('/profile')
-const premiereLettre = () => (s.utilisateur.username || 'U').charAt(0).toUpperCase()
+const nav = useRouter()
+const allerProfil = () => nav.push('/profile')
+const premiereLettre = () => (store.utilisateur.username || 'U').charAt(0).toUpperCase()
 const connexion = () => {
   try {
     window.location.href = auth.obtenirUrlAuthDiscord()
@@ -49,6 +57,7 @@ const connexion = () => {
   align-items: center;
 }
 .gauche { display: flex; align-items: center; gap: 1.2rem; min-width: 0; }
+.droite { display: flex; align-items: center; gap: 0.6rem; }
 .lg { height: 56px; border-radius: 8px; }
 .nav { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .lien {
@@ -59,6 +68,15 @@ const connexion = () => {
   font-weight: 600;
 }
 .lien:hover { color: #ffffff; }
+.niveau {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #ffb400;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
 .connexion {
   padding: 0.6rem 1.2rem;
   background: #1a1a1a;

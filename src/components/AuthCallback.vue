@@ -16,9 +16,9 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import * as auth from '../services/discordAuth'
-import s from '../stores/userStore'
+import store from '../stores/userStore'
 
-const r = useRouter()
+const nav = useRouter()
 const chargement = ref(true)
 const erreur = ref(null)
 const utilisateur = ref({})
@@ -32,7 +32,7 @@ onMounted(async () => {
     const utilisateurDiscord = await auth.recupererUtilisateurDiscord(token.tokenAcces)
     utilisateur.value = utilisateurDiscord
     
-    s.definirInfosUtilisateur({
+    store.definirInfosUtilisateur({
       id: utilisateurDiscord.id,
       username: utilisateurDiscord.username,
       avatar: utilisateurDiscord.avatar,
@@ -41,7 +41,7 @@ onMounted(async () => {
     })
     
     chargement.value = false
-    r.push('/dashboard')
+    nav.push('/dashboard')
   } catch (erreurCapturee) {
     erreur.value = erreurCapturee.message
     chargement.value = false

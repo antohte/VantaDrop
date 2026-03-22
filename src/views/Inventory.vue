@@ -3,11 +3,11 @@
 
   <main class="m">
     <div class="c">
-      <div v-if="s.inventaire.length === 0" class="es">
+      <div v-if="store.inventaire.length === 0" class="es">
         <p>Aucun objet pour le moment</p>
       </div>
       <div v-else class="ig">
-        <div v-for="(objet, i) in s.inventaire" :key="i" class="ii">
+        <div v-for="(objet, idx) in store.inventaire" :key="idx" class="ii">
           <h3>{{ objet.name }}</h3>
           <p>{{ objet.value }}€</p>
         </div>
@@ -18,7 +18,7 @@
 
 <script setup>
 import EnteteSite from '../components/EnteteSite.vue'
-import s from '../stores/userStore'
+import store from '../stores/userStore'
 </script>
 
 <style scoped>
