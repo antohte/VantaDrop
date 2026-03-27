@@ -5,7 +5,6 @@
     <div class="c">
       <section v-if="!store.utilisateur.estConnecte" class="ws">
         <h2>Bienvenue sur VantaDrop</h2>
-        <p>Plateforme d'ouverture de caisses</p>
       </section>
 
       <section v-if="store.utilisateur.estConnecte" class="ps">

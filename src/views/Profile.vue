@@ -32,6 +32,7 @@
 
         <div class="actions">
           <button class="ib" @click="allerInventaire">Voir inventaire</button>
+          <button class="deconnecter" @click="deconnecter">Déconnexion</button>
         </div>
       </section>
     </div>
@@ -39,6 +40,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import EnteteSite from '../components/EnteteSite.vue'
 import { useRouter } from 'vue-router'
 import store from '../stores/userStore'
@@ -46,6 +48,15 @@ import store from '../stores/userStore'
 const nav = useRouter()
 const allerInventaire = () => nav.push('/inventory')
 const premiereLettre = () => (store.utilisateur.username || 'U').charAt(0).toUpperCase()
+
+const deconnecter = () => {
+  store.reinitialiserStore()
+  nav.push('/')
+}
+
+onMounted(async () => {
+  await store.chargerDepuisServeur()
+})
 </script>
 
 <style scoped>
@@ -64,10 +75,12 @@ h2 { margin: 0; text-align: center; background: linear-gradient(135deg, #ffb400,
 .bloc-info { background: #151515; border: 1px solid #1a1a1a; border-radius: 8px; padding: 1rem; }
 .label { display: block; color: #bfbfbf; margin-bottom: 0.5rem; font-size: 0.9rem; }
 .valeur-solde { display: flex; align-items: center; justify-content: space-between; }
-.actions { display: flex; }
+.actions { display: flex; gap: 0.8rem; }
 .pb { width: 24px; height: 24px; border: 1px solid #ffb400; border-radius: 50%; background: transparent; color: #ffb400; cursor: pointer; }
-.ib { margin-top: 1.5rem; width: 100%; padding: 0.8rem; background: #1a1a1a; color: #fff; border: 1px solid #333; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.ib { flex: 1; padding: 0.8rem; background: #1a1a1a; color: #fff; border: 1px solid #333; border-radius: 8px; cursor: pointer; font-weight: 600; }
 .ib:hover { background: #2a2a2a; box-shadow: 0 0 20px rgba(88, 101, 242, 0.25); }
+.deconnecter { padding: 0.6rem 1rem; background: transparent; color: #888; border: 1px solid #333; border-radius: 6px; cursor: pointer; }
+.deconnecter:hover { color: #fff; }
 
 @media (max-width: 640px) {
   .grille-infos { grid-template-columns: 1fr; }

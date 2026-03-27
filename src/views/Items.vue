@@ -49,6 +49,8 @@ import { computed, onMounted, ref, watch } from 'vue'
 import EnteteSite from '../components/EnteteSite.vue'
 import { recupererSneakers } from '../services/sneakerDb'
 
+const NB_ITEMS_API = 450
+
 const recherche = ref('')
 const triPrix = ref('asc')
 const chargement = ref(false)
@@ -115,7 +117,7 @@ const chargerElements = async () => {
   erreur.value = ''
 
   try {
-    elements.value = await recupererSneakers(150)
+    elements.value = await recupererSneakers(NB_ITEMS_API)
   } catch (err) {
     erreur.value = err.message || 'Erreur API items'
   } finally {

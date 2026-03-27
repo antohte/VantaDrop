@@ -4,9 +4,9 @@
       <div class="gauche">
         <img :src="logo" alt="Logo" class="lg">
         <nav class="nav">
-          <RouterLink to="/dashboard" class="lien">Caisses</RouterLink>
-          <RouterLink to="/items" class="lien">Objets</RouterLink>
-          <RouterLink to="/dashboard" class="lien">Classement</RouterLink>
+          <RouterLink to="/dashboard" class="lien">Boxes</RouterLink>
+          <RouterLink to="/items" class="lien">Items</RouterLink>
+          <RouterLink to="/dashboard" class="lien">Leaderboard</RouterLink>
         </nav>
       </div>
 

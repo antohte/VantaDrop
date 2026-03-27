@@ -39,6 +39,8 @@ onMounted(async () => {
       email: utilisateurDiscord.email,
       estConnecte: true
     })
+
+    await store.chargerDepuisServeur()
     
     chargement.value = false
     nav.push('/dashboard')
