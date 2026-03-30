@@ -99,7 +99,20 @@ solution:
 - selection random dans la tranche tiree
 - exclusion stricte des prix interdits
 
-### 5) inspiration animation
+### 5) parsing items mysql
+
+souci: mysql2 retourne parfois le json deja parse comme objet js au lieu d'une string. quand on essayait de faire json.parse() sur un objet, ca plantait silencieusement. si on faisait string() sur l'objet, ca revenait `[object Object]` qui n'est pas du json valide. donc l'api retournait pas d'erreur 500, les items restaient juste vides, aucun message clair.
+
+solution:
+
+- checker le type de items_json avant de parser
+- si c'est deja un array, retourner directement
+- si c'est un object, retourner []
+- sinon essayer de parser comme string avec try/catch
+
+ca a pris du temps a debug parce qu'il y avait aucune erreur visible, juste des donnees manquantes.
+
+### 6) inspiration animation
 
 on s'est inspire de cette base:
 https://stackoverflow.com/questions/72911789/make-csgo-case-opener-responsive-css
@@ -175,3 +188,21 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## contributeurs
+
+### antonin hotte : logique métier et intégration client
+
+- consommation api sneakers: intégration complète via axios pour la récup des items
+- système de filtrage: nettoyage des données (images valides, prix) et tris par catégories
+- moteur d'économie: conception du système de probas (pourcentages de drop) et équilibrage des prix des caisses (bronze, silver, gold)
+- authentification (frontend): implémentation du flux oauth discord côté client et gestion des tokens
+- gestion du store global: création du système de profil (calcul xp, gestion solde et stockage inventaire réactif)
+
+### noé gomes : infrastructure et animation
+
+- architecture base de données: conception et création de la bdd mysql (vantadrop.sql)
+- backend & api (express): création des endpoints de santé (/sante) et de gestion de profil (/profils)
+- persistance des données: implémentation de la logique upsert (création/mise à jour auto en bdd lors de la sync)
+- liaison oauth/bdd: développement du pont entre l'authentification discord et la table des profils en base
+- expérience visuelle: développement de l'animation roulette (calculs positionnement dom et transitions fluides)
