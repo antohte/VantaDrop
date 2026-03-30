@@ -13,3 +13,8 @@ export const synchroniserProfil = async (profil) => {
   const r = await apiProfil.post('/api/profils/sync', profil)
   return r.data
 }
+
+export const obtenirLeaderboard = async () => {
+  const r = await apiProfil.get('/api/leaderboard')
+  return r.data
+}

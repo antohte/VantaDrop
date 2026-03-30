@@ -6,6 +6,7 @@ import Dashboard from './views/Dashboard.vue'
 import Items from './views/Items.vue'
 import Profile from './views/Profile.vue'
 import Inventory from './views/Inventory.vue'
+import Leaderboard from './views/Leaderboard.vue'
 import AuthCallback from './components/AuthCallback.vue'
 import store from './stores/userStore'
 import './styles/main.css'
@@ -16,6 +17,7 @@ const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/dashboard', component: Dashboard, name: 'Dashboard', meta: { authRequise: true } },
   { path: '/items', component: Items, name: 'Items', meta: { authRequise: true } },
+  { path: '/leaderboard', component: Leaderboard, name: 'Leaderboard' },
   { path: '/profile', component: Profile, name: 'Profile', meta: { authRequise: true } },
   { path: '/inventory', component: Inventory, name: 'Inventory', meta: { authRequise: true } },
   { path: '/auth/callback', component: AuthCallback, name: 'AuthCallback' },

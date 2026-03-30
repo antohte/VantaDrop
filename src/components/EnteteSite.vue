@@ -6,7 +6,7 @@
         <nav class="nav">
           <RouterLink to="/dashboard" class="lien">Boxes</RouterLink>
           <RouterLink to="/items" class="lien">Items</RouterLink>
-          <RouterLink to="/dashboard" class="lien">Leaderboard</RouterLink>
+          <RouterLink to="/leaderboard" class="lien">Leaderboard</RouterLink>
         </nav>
       </div>
 

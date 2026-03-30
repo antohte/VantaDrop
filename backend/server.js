@@ -110,6 +110,26 @@ app.post('/api/profils/sync', async (req, res) => {
   }
 })
 
+app.get('/api/leaderboard', async (req, res) => {
+  try {
+    const [lignes] = await pool.query(
+      'SELECT pseudo, avatar, niveau, xp FROM profils ORDER BY niveau DESC, xp DESC LIMIT 10'
+    )
+
+    const leaderboard = lignes.map((p, index) => ({
+      position: index + 1,
+      pseudo: p.pseudo,
+      avatar: p.avatar,
+      niveau: Number(p.niveau || 1),
+      xp: Number(p.xp || 0)
+    }))
+
+    res.json(leaderboard)
+  } catch (erreur) {
+    res.status(500).json({ erreur: erreur.message })
+  }
+})
+
 app.listen(port, () => {
   console.log(`API MySQL active sur http://localhost:${port}`)
 })
