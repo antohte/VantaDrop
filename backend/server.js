@@ -11,6 +11,20 @@ const port = Number(process.env.API_PORT || 3001)
 app.use(cors({ origin: true }))
 app.use(express.json())
 
+// fonction helper pour parser les items depuis la BDD
+// mysql2 peut retourner du json deja parse ou en string
+const parseItems = (itemsJson) => {
+  if (!itemsJson) return []
+  if (Array.isArray(itemsJson)) return itemsJson
+  if (typeof itemsJson === 'object') return []
+  try {
+    const str = String(itemsJson || '').trim()
+    return str ? JSON.parse(str) : []
+  } catch {
+    return []
+  }
+}
+
 app.get('/api/sante', (req, res) => {
   res.json({ ok: true })
 })
@@ -37,7 +51,7 @@ app.get('/api/profils/:discordId', async (req, res) => {
       xp: Number(p.xp || 0),
       niveau: Number(p.niveau || 1),
       caissesOuvertes: Number(p.caisses_ouvertes || 0),
-      items: p.items_json ? JSON.parse(p.items_json) : []
+      items: parseItems(p.items_json)
     })
   } catch (erreur) {
     res.status(500).json({ erreur: erreur.message })
@@ -89,7 +103,7 @@ app.post('/api/profils/sync', async (req, res) => {
       xp: Number(p.xp || 0),
       niveau: Number(p.niveau || 1),
       caissesOuvertes: Number(p.caisses_ouvertes || 0),
-      items: p.items_json ? JSON.parse(p.items_json) : []
+      items: parseItems(p.items_json)
     })
   } catch (erreur) {
     res.status(500).json({ erreur: erreur.message })

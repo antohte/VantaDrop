@@ -55,6 +55,7 @@ const deconnecter = () => {
 }
 
 onMounted(async () => {
+  store.chargerDepuisLocalStorage()
   await store.chargerDepuisServeur()
 })
 </script>
