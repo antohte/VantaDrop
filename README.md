@@ -57,6 +57,21 @@ on voulait un truc simple mais fonctionnel, avec:
 - sync auto apres login et apres achat box
 - fallback localstorage si api bdd indispo (pour eviter de bloquer le joueur)
 
+### 7) leaderboard
+
+- classement global des 10 meilleurs joueurs
+- tri par niveau (DESC) puis par XP (DESC)
+- affichage du pseudo, niveau, xp et avatar discord
+- badges special: or (1er), argent (2e), bronze (3e)
+- acces libre sans authentification
+- page responsive avec bouton retour
+
+**route:** `/leaderboard`
+
+**endpoint api:** `GET /api/leaderboard` - retourne les 10 meilleurs joueurs au format json
+
+**maj automatique:** le leaderboard se maj auto a chaque entree (rechargement des donnees depuis la bdd)
+
 ## difficultes rencontrees + solutions
 
 ### 1) lier oauth discord et mysql
