@@ -50,8 +50,8 @@ export const recupererUtilisateurDiscord = async (tokenAcces) => {
       mfa_enabled: reponse.data.mfa_enabled,
     }
   } catch (erreur) {
-    console.error('Erreur pendant la récupération du profil Discord :', erreur)
-    throw erreur
+    console.error('erreur lors du fetch du profil discord:', erreur.message)
+    throw new Error('impossible de charger le profil discord. verifie que tu as accepté les permissions')
   }
 }
 

@@ -23,6 +23,10 @@
         </div>
       </section>
 
+      <div v-if="messageErreur" class="msg-erreur">
+        {{ messageErreur }}
+      </div>
+
       <section class="s">
         <h2>Caisses</h2>
         <div class="grille-boxes">
@@ -97,6 +101,7 @@ const offsetRoulette = ref(0)
 const pisteTransition = ref('none')
 const fenetreRef = ref(null)
 const marqueurRef = ref(null)
+const messageErreur = ref(null)
 
 const INDEX_GAGNANT = 45
 const attendreFrame = () => new Promise((resolve) => requestAnimationFrame(resolve))
@@ -193,20 +198,22 @@ const fermerAnimation = () => {
 }
 
 const acheter = async () => {
+  messageErreur.value = null
+  
   // fix bug: si items pas encore charges, on recharge avant achat
   if (!itemsDispo.value.length) {
     await chargerItemsPourCaisses()
   }
 
   if (!itemsDispo.value.length) {
-    alert('items indispo pr le moment, reessaie dans 2 sec')
+    messageErreur.value = 'items indispo pr le moment, reessaie dans 2sec'
     return
   }
 
   // le drop est calcule ici avec les vraies proba du store
   const resultat = await store.acheterCaisse(caisseSelectionnee.value, itemsDispo.value)
   if (!resultat.ok) {
-    alert(resultat.message)
+    messageErreur.value = resultat.message
     return
   }
 
@@ -216,9 +223,12 @@ const acheter = async () => {
 
 const chargerItemsPourCaisses = async () => {
   chargementItems.value = true
+  messageErreur.value = null
   try {
     itemsDispo.value = await recupererSneakers(NB_ITEMS_API)
-  } catch {
+  } catch (err) {
+    console.error('erreur lors du chargement des items:', err.message)
+    messageErreur.value = 'impossible de charger les items pour le moment. reessaie dans 2sec'
     itemsDispo.value = []
   } finally {
     chargementItems.value = false
@@ -276,6 +286,7 @@ onMounted(() => {
 .roulette-resultat p { margin: 0 0 0.25rem; color: #cfcfcf; }
 .btn-fermer-roulette { margin-top: 0.9rem; width: 100%; padding: 0.8rem; background: #1a1a1a; border: 1px solid #333; color: #fff; border-radius: 8px; cursor: pointer; }
 .btn-fermer-roulette:disabled { opacity: 0.5; cursor: not-allowed; }
+.msg-erreur { margin: 1rem 0; padding: 0.8rem; background: #3a1a1a; border: 1px solid #8b3a3a; border-radius: 8px; color: #ff6b6b; text-align: center; font-size: 0.9rem; }
 
 @media (max-width: 800px) {
   .stats, .grille-boxes { grid-template-columns: 1fr; }

@@ -2,7 +2,7 @@
 
 ## objectif du projet
 
-l'objectif de ce projet c'est de faire une app web type case opening (inspire cs2), ou un joueur se connecte avec discord, achete des caisses, gagne des items aleatoires, et garde sa progression.
+l'objectif de ce projet c'est de faire une app web type case opening, ou un joueur se connecte avec discord, achete des caisses, gagne des items aleatoires, et garde sa progression.
 
 on voulait un truc simple mais fonctionnel, avec:
 

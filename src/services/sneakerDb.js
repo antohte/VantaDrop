@@ -38,29 +38,40 @@ export const recupererSneakers = async (limite = 12) => {
     const resultat = []
 
     for (let page = 1; page <= nbPages; page += 1) {
-      const reponse = await apiClient.get('/sneakers', {
-        params: { limit: parPage, page }
-      })
+      try {
+        const reponse = await apiClient.get('/sneakers', {
+          params: { limit: parPage, page }
+        })
 
-      const donnees = reponse.data?.results || reponse.data || []
+        const donnees = reponse.data?.results || reponse.data || []
 
-      if (!Array.isArray(donnees) || donnees.length === 0) {
-        break
-      }
+        if (!Array.isArray(donnees) || donnees.length === 0) {
+          break
+        }
 
-      const valides = donnees
-        .map(formater)
-        .filter((e) => imageValide(e.image) && prixValide(e.prix))
+        const valides = donnees
+          .map(formater)
+          .filter((e) => imageValide(e.image) && prixValide(e.prix))
 
-      resultat.push(...valides)
+        resultat.push(...valides)
 
-      if (resultat.length >= limiteDemandee) {
+        if (resultat.length >= limiteDemandee) {
+          break
+        }
+      } catch (errPage) {
+        console.error(`erreur page ${page}:`, errPage.message)
+        if (page === 1) throw errPage
         break
       }
     }
 
+    if (resultat.length === 0) {
+      throw new Error('aucun item valide disponible')
+    }
+
     return resultat.slice(0, limiteDemandee)
   } catch (err) {
-    throw new Error('erreur API sneakers')
+    console.error('erreur lors de la recuperation des sneakers:', err.message)
+    throw new Error('connexion à l\'API sneakers impossible - verifie ta clé API')
   }
 }
